@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 public class BaseFragment extends Fragment {
 
     protected void showLog(String msg) {
-        LogUtils.show(getClass().getSimpleName() + "(" + hashCode() + ")#" + msg);
+        LogUtils.show(getClass().getSimpleName() + "(" + hashCode() + ")#" + msg + ", -------(" + getUserVisibleHint() + ", " + !isHidden() + ")");
     }
 
     @Override

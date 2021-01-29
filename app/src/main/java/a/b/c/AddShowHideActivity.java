@@ -43,7 +43,7 @@ public class AddShowHideActivity extends BaseActivity {
     private void addB(View view) {
         showLog("----------- add-B -------------");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.container, BFragment.newInstance());
+        transaction.add(R.id.container, ParentFragment.newInstance());
         transaction.commit();
 
     }

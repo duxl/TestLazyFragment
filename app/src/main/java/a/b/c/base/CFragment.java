@@ -38,7 +38,7 @@ public class CFragment extends LazyFragment {
     }
 
     @Override
-    void onLazyHiddenChanged(boolean isVisible, boolean isFirst) {
+    public void onLazyHiddenChanged(boolean isVisible, boolean isFirst) {
         showLog("onLazyHiddenChanged---------isVisible=" + isVisible + ", isFirst=" + isFirst);
     }
 }

@@ -30,7 +30,8 @@ public class ViewPagerActivity extends BaseActivity {
         fragments = new Fragment[]{
                 AFragment.newInstance(),
                 BFragment.newInstance(),
-                CFragment.newInstance()
+                CFragment.newInstance(),
+                ParentFragment.newInstance()
 
         };
 
