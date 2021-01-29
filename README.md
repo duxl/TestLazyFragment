@@ -13,18 +13,25 @@
 - *`onCreateView`*
 
 - *`onViewCreated`*
+
 - *`onActivityCreated`*
-- *onViewStateRestored*
+
+- *`onViewStateRestored`*
 
 - *`onStart`*
+
 - *`onResume`*
 
 ###### *后半段：*
 
 - *`onPause`*
+
 - *`onStop`*
+
 - *`onDestroyView`*
+
 - *`onDestroy`*
+
 - *`onDetach`*
 
 ------
