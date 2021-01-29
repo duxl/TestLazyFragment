@@ -25,7 +25,7 @@
 - *`onStop`*
 - *`onDestroyView`*
 - *`onDestroy`*
-- *`onDetach*`
+- *`onDetach`*
 
 ------
 
