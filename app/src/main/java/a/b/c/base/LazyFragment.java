@@ -1,9 +1,17 @@
 package a.b.c.base;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewStub;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import a.b.c.R;
 
 /**
  * create by duxl 2021/1/28
@@ -15,6 +23,11 @@ public abstract class LazyFragment extends BaseFragment {
     private boolean isFirstVisible = true; // 是否第一次
     private boolean isAttach;
 
+    private ViewGroup mRoot;
+    private ViewStub mViewStub;
+    private boolean mHasInflated; // 是否已经加载了真实的布局文件
+    private boolean mInflatedImmediately; // 是否立即加载布局文件
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -25,6 +38,18 @@ public abstract class LazyFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         isAttach = false;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mRoot = (ViewGroup) inflater.inflate(R.layout.fragment_lazy, container, false);
+        mViewStub = mRoot.findViewById(R.id.view_stub);
+        mViewStub.setLayoutResource(getLayoutResId());
+        if (mInflatedImmediately) {
+            innerInflateLayout();
+        }
+        return mRoot;
     }
 
     @Override
@@ -70,9 +95,40 @@ public abstract class LazyFragment extends BaseFragment {
         }
     }
 
+    /**
+     * 加载布局文件，调用了此方法的Fragment被创建后布局文件会被立即加载
+     *
+     * @return
+     */
+    public LazyFragment inflateLayout() {
+        mInflatedImmediately = true;
+        innerInflateLayout();
+        return this;
+    }
+
+    /**
+     * 加载布局文件
+     */
+    protected void innerInflateLayout() {
+        if (mViewStub != null && !mHasInflated) {
+            //mViewStub.setVisibility(View.VISIBLE);
+            mViewStub.inflate();
+            mHasInflated = true;
+            onLazyViewCreated(mRoot.getChildAt(0));
+        }
+    }
+
+    /**
+     * 可见状态改变处理函数
+     *
+     * @param visible
+     */
     protected void lazyHiddenChanged(boolean visible) {
         if (isVisible != visible) {
             isVisible = visible;
+            if (isVisible && isFirstVisible) {
+                innerInflateLayout();
+            }
             onLazyHiddenChanged(isVisible, isFirstVisible);
             isFirstVisible = false;
         }
@@ -85,4 +141,21 @@ public abstract class LazyFragment extends BaseFragment {
      * @param isFirstVisible 第一次可见的时候为true，其它为false
      */
     protected abstract void onLazyHiddenChanged(boolean isVisible, boolean isFirstVisible);
+
+    /**
+     * 懒加载的布局文件被加载了的回调函数，通常情况下当Fragment第一次可见的时候才回调此函数，
+     * 也可以调用{@link #inflateLayout()}让Fragment创建后立即加载布局并回调此函数
+     *
+     * @param view
+     */
+    protected void onLazyViewCreated(View view) {
+
+    }
+
+    /**
+     * 布局文件
+     *
+     * @return
+     */
+    protected abstract int getLayoutResId();
 }

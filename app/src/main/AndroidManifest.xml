@@ -19,20 +19,29 @@
 
         <activity android:name=".EmptyActivity" />
 
-        <activity android:name=".AddShowHideActivity"
+        <activity
+            android:name=".AddShowHideActivity"
             android:label="测试生命周期/add、show、hide">
             <intent-filter>
                 <action android:name="${action_value}" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ViewPagerActivity"
+        <activity
+            android:name=".ViewPagerActivity"
             android:label="测试生命周期/ViewPagerActivity">
             <intent-filter>
                 <action android:name="${action_value}" />
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ManyFragmentActivity"
+            android:label="解决多Fragment加载卡顿问题">
+            <intent-filter>
+                <action android:name="${action_value}" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

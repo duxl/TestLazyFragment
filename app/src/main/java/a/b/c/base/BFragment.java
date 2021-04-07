@@ -36,4 +36,9 @@ public class BFragment extends LazyFragment {
     public void onLazyHiddenChanged(boolean isVisible, boolean isFirst) {
         showLog("onLazyHiddenChanged---------isVisible=" + isVisible + ", isFirst=" + isFirst);
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return 0;
+    }
 }

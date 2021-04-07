@@ -43,3 +43,45 @@
    3. 切换ViewPager时，离开的fragment传入false、进入的fragment传入true
    4. Fragment嵌套的子Fragment不会调用`setUserVisibleHint`方法
 3. 在AndroidX下ViewPager使用 FragmentPagerAdapter(FragmentManager fm, int behavior)，behavior参数传入`FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT`参数，控制只有当前fragment的生命周期会执行`onResume`，其它的fragment只会执行到`onStart`。并且`setUserVisibleHint`也**不再会调用**。
+
+
+
+#### 使用LazyFragment只需要关注以下4个API
+
+```java
+/**
+* 布局文件
+*
+* @return
+*/
+protected abstract int getLayoutResId()
+```
+
+```java
+/**
+ * 懒加载的布局文件被加载了的回调函数，通常情况下当Fragment第一次可见的时候才回调此函数，
+ * 也可以调用{@link #inflateLayout()}让Fragment创建后立即加载布局并回调此函数
+ *
+ * @param view
+ */
+protected void onLazyViewCreated(View view)
+```
+
+```java
+/**
+ * 加载布局文件，调用了此方法的Fragment被创建后布局文件会被立即加载
+ *
+ * @return
+ */
+public LazyFragment inflateLayout()
+```
+
+```java
+/**
+ * fragment可见状态改变的时候回调
+ *
+ * @param isVisible      是否可见
+ * @param isFirstVisible 第一次可见为true，其它为false
+ */
+protected abstract void onLazyHiddenChanged(boolean isVisible, boolean isFirstVisible)
+```

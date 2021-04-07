@@ -40,4 +40,9 @@ public class ParentFragment extends LazyFragment {
     public void onLazyHiddenChanged(boolean isVisible, boolean isFirstVisible) {
         showLog("onLazyHiddenChanged-------isVisible=" + isVisible + ",  isFirstVisible=" + isFirstVisible);
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return 0;
+    }
 }

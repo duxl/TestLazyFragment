@@ -32,7 +32,6 @@ public class ViewPagerActivity extends BaseActivity {
                 BFragment.newInstance(),
                 CFragment.newInstance(),
                 ParentFragment.newInstance()
-
         };
 
         mViewPager.setOffscreenPageLimit(fragments.length);
